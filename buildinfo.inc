@@ -1,0 +1,4 @@
+MAJOR :=
+MINOR :=
+PATCH :=
+BUILD :=27
