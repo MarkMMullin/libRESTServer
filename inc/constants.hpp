@@ -4,7 +4,7 @@
 #include <string>
 
 enum { 
-     RECV_BUFF_SIZE = 2048 
+     RECV_BUFF_SIZE = 4096
 };
 
 namespace srv_info {

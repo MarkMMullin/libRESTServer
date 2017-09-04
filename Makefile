@@ -23,8 +23,9 @@ OBJECTS := $(SOURCES:src/%.cpp=obj/$(BUILDDIR)/%.o)
 LIBNAME := libRESTServer.a
 
 all: libRESTServer.a
-
+	@echo [libRESTServer OK]
 libRESTServer.a : $(OBJECTS)
+	@echo -n "libRESTServer "
 	@$(AR) rcs $(LIBNAME)  $(OBJECTS)
 
 obj/$(BUILDDIR)/%.o : src/%.cpp
@@ -41,7 +42,7 @@ buildinfo.inc : $(OBJECTS)
 	@echo "PATCH :=$(PATCH)" >> buildinfo.inc
 	@echo "BUILD :=$(BUILD)" >> buildinfo.inc
 
-.PHONY: clean
+.PHONY: clean all
 clean:
 	./clean.sh
 

@@ -4,8 +4,8 @@ Html_file htmlfile__test_file_root_html;
 Html_file htmlfile__test_test_file_html;
 Html_file htmlfile__test_directory_updates_file_html;
 Html_file htmlfile__404;
+Html_file htmlfile__OK;
 
-Html_file camera1;
 
 void initializeFiles()
 {
@@ -77,14 +77,14 @@ void initializeFiles()
     "        </p>\n"
     "    </body>\n"
                      "</html>\n",
-                     "text/html; charset=UTF-8\n"
+                     "text/html; charset=UTF-8"
 		     );
 
   initializeTextFile(&htmlfile__test_test_file_html,
     "test_file.html",
 		     "/test",
 		     "",
-                     "text/html; charset=UTF-8\n"
+                     "text/html; charset=UTF-8"
 		     );
 
   initializeTextFile(&htmlfile__test_directory_updates_file_html,
@@ -97,7 +97,7 @@ void initializeFiles()
     "        </p>\n"
     "    </body>\n"
                      "</html>\n",
-                     "text/html; charset=UTF-8\n"
+                     "text/html; charset=UTF-8"
 		     );
 
   initializeTextFile(&htmlfile__404,
@@ -110,13 +110,24 @@ void initializeFiles()
     "        </p>\n"
     "    </body>\n"
                      "</html>\n",
-                     "text/html; charset=UTF-8\n"
+                     "text/html; charset=UTF-8"
 		     );
 
-  initializeRawFile(&camera1,
-                    "camera1.jpg",
-                    "/",
-                    "/home/mark/qimages/C0-1472600490.637623l.jpg");
+                    
+
+  initializeTextFile(&htmlfile__OK,
+    "OK.html",
+    "/",
+    "<html>\n"
+    "    <body>\n"
+    "        <p>\n"
+    "        <h1>OK</h1>\n"
+    "        </p>\n"
+    "    </body>\n"
+                     "</html>\n",
+                     "text/html; charset=UTF-8"
+		     );
+
                     
 }
 
@@ -128,6 +139,6 @@ std::unordered_map<std::string, Html_file*> populate_file_umap()
     file_hash_table["/test_file_root.html"]              = &htmlfile__test_file_root_html;
     file_hash_table["/test/directory/updates/file.html"] = &htmlfile__test_directory_updates_file_html;
     file_hash_table["/404.html"] = &htmlfile__404;
-    file_hash_table["/camera1.jpg"] = &camera1;
+    file_hash_table["/OK.html"] = &htmlfile__OK;
     return file_hash_table;
 }

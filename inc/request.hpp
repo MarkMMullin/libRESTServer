@@ -21,6 +21,10 @@ public:
         WAT
     };
     static Request_data handle_request(const std::string &req_str);
+private:
+  static char *urlencode(const char *src, const int src_len, char *dest, int *dest_len);
+  static char *urldecode(const char *src, const int src_len, char *dest, int *dest_len);
+  static char *urldecode_ex(const char *src, const int src_len, char *dest, int *dest_len);
 };
 
 struct Request_data {

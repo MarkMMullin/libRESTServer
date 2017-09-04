@@ -76,4 +76,3 @@ void Server::send(int clientid, uint8_t* response,long responseLength)
     ::send(clientid, response, responseLength, 0);
 }
 
-

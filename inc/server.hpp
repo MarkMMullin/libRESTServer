@@ -25,7 +25,7 @@ public:
     static void remove();
 
    static inline std::string GetVersion() {
-    char vb[32];
+    char vb[64];
     sprintf(vb,"%s-%s:%s:%s.%s",BUILDTYPE,MAJORVER,MINORVER,PATCHVER,BUILDVER);
     return std::string(vb);
   }

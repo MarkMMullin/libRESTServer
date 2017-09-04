@@ -9,7 +9,7 @@ std::string createJSON(const std::map<std::string,std::string>& kvl)
 {
   char sb[2048];
   char wb[256];
-  sprintf(sb,"{\n");
+  strcpy(sb,"{\n");
   for(std::map<std::string,std::string>::const_iterator iter = kvl.begin();iter != kvl.end();iter++)
   {
     if(strlen(sb) > 3)
@@ -17,7 +17,7 @@ std::string createJSON(const std::map<std::string,std::string>& kvl)
     sprintf(wb,"\t\"%s\" : \"%s\"",iter->first.c_str(),iter->second.c_str());
     strcat(sb,wb);
   }
-  strcat(sb,"\n}");
+  strcat(sb,"\n}\n");
   return sb;
 }
 void initializeTextFile(Html_file* self,const std::string& fname,const std::string& fpath,const std::string& textContent,const std::string& contentType)
@@ -25,6 +25,7 @@ void initializeTextFile(Html_file* self,const std::string& fname,const std::stri
   self->filename = fname;
   self->filepath = fpath;
   self->last_modified = "Wed, 31 August 2016 15:09:45 GMT";
+  self->etag = "";
   const char* contentBuffer = textContent.c_str();
   //std:string getStringContent(Html_file* self)
   char cc;
@@ -33,7 +34,6 @@ void initializeTextFile(Html_file* self,const std::string& fname,const std::stri
       self->content.push_back(cc);
       ++contentBuffer;
     }
-  //self->contentType = "text/html; charset=UTF-8\n";
   self->contentType = contentType;
   self->filesize = self->content.size();
 }
@@ -72,8 +72,32 @@ void initializeRawFile(Html_file* self,std::string fname,std::string fpath,std::
       self->content = buffer;
  
   self->contentType = "image/jpeg";
+  self->etag = "";
   self->filesize = self->content.size();
 }
+void initializeRawMemory(Html_file* self,std::string fname,std::string fpath,uint8_t* ptr,uint32_t fileSize,uint32_t etagValue)
+{
+    if(fileSize <= 0)
+      return;
+    self->filename = fname;
+    self->filepath = fpath;
+    self->last_modified = "Wed, 31 August 2016 15:09:45 GMT";
+    // reserve capacity
+    std::vector<uint8_t> buffer;
+    buffer.reserve(fileSize);
+
+    // read the data:
+    for(uint32_t i = 0;i < fileSize;i++)
+      buffer.push_back(*ptr++);
+    self->content = buffer;
+ 
+  self->contentType = "image/jpeg";
+  char buf[16];
+  sprintf(buf,"%d",etagValue);
+  self->etag = buf;
+  self->filesize = self->content.size();
+}
+
 std::string getStringContent(const Html_file* self)
 {
   std::string s;
